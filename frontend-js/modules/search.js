@@ -4,7 +4,7 @@ export default class Search {
   // 1. Select DOM elements, and keep track of any useful data
   constructor() {
     this.injectHTML()
-    alert("Hello.")
+    
     this.headerSearchIcon = document.querySelector(".header-search-icon")
     this.overlay = document.querySelector(".search-overlay")
     this.closeIcon = document.querySelector(".close-live-search")
