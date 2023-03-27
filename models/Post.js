@@ -62,6 +62,7 @@ Post.prototype.update = function(){
 }
 Post.prototype.actuallyUpdate = function (){
     return new Promise(async(resolve, reject)=>{
+        //nap vége 
         this.cleanUp()
         this.validate()
         if (!this.errors.length) {
