@@ -107,7 +107,7 @@ export default class Search {
     
   } else {
       this.resultsArea.innerHTML = `<p class = "alert alert-danger text-center shadow-sm">Sorry, we could not find any results for that search</p>`
-    }
+  }
     this.hideLoaderIcon()
     this.showResultsArea()
   }
@@ -136,6 +136,7 @@ export default class Search {
   }
   closeOverlay() {
     this.overlay.classList.remove("search-overlay--visible")
+    this.inputField.value = ""
   }
   injectHTML() {
     document.body.insertAdjacentHTML('beforeend', `<div class="search-overlay">
