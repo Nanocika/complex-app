@@ -175,5 +175,4 @@ export default class Search {
   </div>`)
 
   }
-
-}
+}//class END
