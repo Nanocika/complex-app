@@ -104,14 +104,12 @@ export default class Search {
       </a>
 
     </div>`
-    } else {
+    
+  } else {
       this.resultsArea.innerHTML = `<p class = "alert alert-danger text-center shadow-sm">Sorry, we could not find any results for that search</p>`
     }
-    
     this.hideLoaderIcon()
     this.showResultsArea()
-
-
   }
 
   showLoaderIcon() {
