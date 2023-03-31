@@ -1,4 +1,5 @@
 import axios from 'axios'
+import DOMPurify from 'dompurify'
 
 export default class Search {
   // 1. Select DOM elements, and keep track of any useful data
@@ -61,11 +62,22 @@ export default class Search {
         alert("Hello, the request failed.")
       })
   }
+  
 
+//DOMPurify.sanitize - hoz info: 
+//a Post -ban a sanitizeHTML csomag mar leellenorzi a bevitt user adatokat a postba es tisztan rakja be az adatbazisba.
+//amikor az adatbazisbol a server renderel  a frontendre, akkor is elleneorizzuk,  az EJS Engine + sanitizeHTML nem engedi 
+//a javascripteket lefutni frontenden. 
+//visszont most a searcb-en ha az adatbazisbol kinyert adatokat nem EJS Enginel iratjuk ki, hanem Frontend oldalon futo JS-el, 
+//ami sima HTML-be irja ki az adatokat, ahol visszont a js-ek lefutnanak.Ez akkor tortenne meg ha veletlenul feltornek az adatbazits
+// es postok title/body-jaba js kodod irna valaki (lasd Test/Test post ahol egy js van title-be beleirva tesztkent). 
+//Ezert hogy ezt az esetet is elkeruljuk (legrosszabb eset ), afrontendet ugy tudkuk megvedeni hogy DOMPURIFY csomag megkadalyozza a
+//js futast. (a htmlt benne hagyja). Igaz, hogy ezt frontend ellenorzest sanitizeHTML is megakadalyozna, de a DOMPirify csomag sokkal kisebb
+//es mikor lefut js fronend oldalon, nem mindehgy mekkor csomag kell letoltodjon js futas kozben.         
 
   renderResultsHTML(posts){
     if (posts.length){
-      this.resultsArea.innerHTML = `<div class="list-group shadow-sm">
+      this.resultsArea.innerHTML = DOMPurify.sanitize(`<div class="list-group shadow-sm">
       <div class="list-group-item active"><strong>Search Results</strong> ${posts.length >1 ? `${posts.length} (items found)` : `(1 item found)`}</div>
       ${posts.map(post=>{
         let postDate = new Date(post.createdDate)
@@ -79,7 +91,7 @@ export default class Search {
       </a>`
       }).join("")}
       
-      </div>`
+      </div>`)
     
   } else {
       this.resultsArea.innerHTML = `<p class = "alert alert-danger text-center shadow-sm">Sorry, we could not find any results for that search</p>`
