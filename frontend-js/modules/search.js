@@ -64,7 +64,8 @@ export default class Search {
   }
   
 
-//DOMPurify.sanitize - hoz info: 
+//DOMPurify.sanitize - hoz info: node-ra installalni kell: npm install dompurify - a webpack miatt frontend oldalon is lehet importalni majd
+//
 //a Post -ban a sanitizeHTML csomag mar leellenorzi a bevitt user adatokat a postba es tisztan rakja be az adatbazisba.
 //amikor az adatbazisbol a server renderel  a frontendre, akkor is elleneorizzuk,  az EJS Engine + sanitizeHTML nem engedi 
 //a javascripteket lefutni frontenden. 
