@@ -23,9 +23,9 @@
     </div>
       
     <p class="text-muted small mb-4">
-      <a href="#"><img class="avatar-tiny" src="<%= post.author.avatar %>"></a>
+      <a href="/profile/<%= post.author.username %>"><img class="avatar-tiny" src="<%= post.author.avatar %>"></a>
       <% let postDate = new Date(post.createdDate)%>
-      Posted by <a href="#"><%= post.author.username %></a> on <%= postDate.getMonth()+1 %>/<%= postDate.getDate() %>/<%= postDate.getFullYear() %></p>
+      Posted by <a href="/profile/<%= post.author.username %>"><%= post.author.username %></a> on <%= postDate.getMonth()+1 %>/<%= postDate.getDate() %>/<%= postDate.getFullYear() %></p>
 
     <div class="body-content">
       <%- filterUseHTML(post.body) %>
