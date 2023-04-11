@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const usersCollection = require('../db').db().collection("users")
-const validator = require('Validator')
+const validator = require('validator')
 const md5 = require('md5')
 let User = function(data, getAvatar){
     this.data = data
@@ -97,9 +97,9 @@ User.findByUserName = function(username){
           avatar: userDoc.avatar
 
         }
-        resolve(userDoc)//outer Promise Resolve
+        resolve(userDoc)//inner Promise Resolve
       } else {
-        reject() //outer Promise Reject1
+        reject() //inner Promise Reject
       }
 
     }).catch(function (){
