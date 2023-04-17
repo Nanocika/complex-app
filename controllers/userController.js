@@ -4,10 +4,7 @@ const Follow = require('../models/Follow.js')
 
 
 //Lacinak 
-//KOMMENT BEGIN ****** 
-// A kovetes funkcio mukodik mindenhol, ehhet mar nem is több fejlesztes. Ahhoz hogy tesztelni lehessen, 
-//tobb userel egymast ide oda kovetni kell es akkor az adott User Profile lapjan
-// a Followers(kik kovetik az usert)/ Following (kiket kovet ez az User  ) lehet ezeke csekkolni. ((-:)
+//Pusholtam most az lemaradt ket valtoztatast
 //KOMMENT END ******
 
 exports.sharedProfileData= async function (req, res, next) {
