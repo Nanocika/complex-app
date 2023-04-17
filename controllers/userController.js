@@ -95,13 +95,26 @@ exports.register =  function(req, res) {
         })
     })
 }
-exports.home =  function(req, res) {
+/*
+uj funkcio:  
+ha az user be van jelentkezve, akkor az o sajat  nyito oldalara betoltodnek az adatbazisbol  azok a posztok 
+amelyeket azok az egyeb userek posztoltak akiket az user alapbol mar kovet,  idoszerint felsorolva, a legujabbak felul.
+1. lepes: lekerjuk egy tomb-be a follows collectionsbol azokat az followedId-kat, akiket mi kovetunk.
+2. lepes: lekerjuk a posts collectionsbol azokat a posztokat ahol az authorId benne van a fenti tomb-ben, 
+a teljes vegeredmenyt ido szerint szoritorzva.     
+
+a kovetkezo fejlesztes: LIVE FEED lesz
+*/
+exports.home =  async function(req, res) {
     if (req.session.user) {
-        res.render('home-dashboard')
+        //posts of current followed users
+        let posts = await Post.getFeed(req.session.user._id)
+        res.render('home-dashboard', {posts:posts})
     } else {
         res.render('home-guest', {regErrors: req.flash('regErrors')}) 
     }
 }
+
 exports.ifUserExists =  function(req, res, next) {
     User.findByUserName(req.params.username).then(function (userDocument) {
         req.profileUser = userDocument
