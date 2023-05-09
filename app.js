@@ -48,15 +48,21 @@ const server = require("http").createServer(app)
 //socket.io connections added to server
 const io = require("socket.io")(server)
 
+io.use(function (socket, next) {
+  sessionOptions(socket.request, socket.request.res, next)
+})
+
 io.on("connection", function (socket) {
   //console.log("A new user from frontend  connected into (SOCKET.IO) 2")
+  if (socket.request.session.user) {
+    let user = socket.request.session.user
+    socket.on("chatMessageFromBrowser", function (data) {
+      //console.log(data.message)
+      //socket.emit = response only for the browser which sent the message
 
-  socket.on("chatMessageFromBrowser", function (data) {
-    //console.log(data.message)
-    //socket.emit = response only for the browser which sent the message
-
-    io.emit("chatMessageFromServer", { message: data.message })
-  })
+      io.emit("chatMessageFromServer", { message: data.message, username: user.username, avatar: user.avatar })
+    })
+  }
 })
 
 //our server now is going to power both our express app and our socket connections
