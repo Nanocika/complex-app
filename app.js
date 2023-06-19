@@ -55,14 +55,24 @@ io.use(function (socket, next) {
 io.on("connection", function (socket) {
   //console.log("A new user from frontend  connected into (SOCKET.IO) 2")
   if (socket.request.session.user) {
+
     let user = socket.request.session.user
+    
+    socket.emit ('welcome', {username: user.username, avatar: user.avatar})
+
     socket.on("chatMessageFromBrowser", function (data) {
       //console.log(data.message)
+      
       //socket.emit = response only for the browser which sent the message
-
-      io.emit("chatMessageFromServer", { message: data.message, username: user.username, avatar: user.avatar })
+      
+      //this send for all browser connected to io, including the browser who sent the message
+      //io.emit("chatMessageFromServer", { message: data.message, username: user.username, avatar: user.avatar })
+      
+      //this send to all browsers connected excepz to the browser who sent the message  
+      socket.broadcast.emit("chatMessageFromServer", { message: sanitizeHTML(data.message,{allowedTags:[], allowedAttributes: {}}), username: user.username, avatar: user.avatar })
     })
   }
+  
 })
 
 //our server now is going to power both our express app and our socket connections
