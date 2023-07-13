@@ -1,9 +1,12 @@
+import axios from 'axios'
 export default class RegistrationForm {
     constructor(){
         this.allFields = document.querySelectorAll("#registration-form .form-control")
         this.insertValidationElements()
         this.username = document.querySelector("#username-register")
-        this.username.previousValue= ""
+        this.username.previousValue = ""
+        this.email = document.querySelector("#email-register")
+        this.email.previousValue = ""    
         this.events()
     }
 
@@ -13,6 +16,9 @@ export default class RegistrationForm {
             this.isDifferent(this.username, this.usernameHandler())
         })
         
+        this.email.addEventListener('keyup', ()=>{
+            this.isDifferent(this.email, this.emailHandler())
+        })
     }
 
     // Methods
@@ -29,10 +35,46 @@ export default class RegistrationForm {
         this.username.errors = false
         this.usernameImmediately()
         clearTimeout(this.username.timer)
-        this.username.timer= setTimeout(() =>this.usernameAfterDelay(), 3000)
+        this.username.timer= setTimeout(() =>this.usernameAfterDelay(), 1000)
 
     }
 
+    emailHandler(){
+        this.email.errors = false
+        clearTimeout(this.email.timer)
+        this.email.timer= setTimeout(() =>this.emailAfterDelay(), 1000)
+
+    }
+
+    emailAfterDelay(){
+        
+        if(!/^\S+@\S+$/.test(this.email.value)){
+            this.showValidationError(this.email, "You must provide a valid email adress")
+        }
+
+        if (!this.email.errors){
+            this.hideValidationError(this.email)
+        }
+
+        if (!this.email.errors){
+            axios.post('/doesEmailExist', {email: this.email.value}).then((response)=>{
+                if (response.data) {
+                    this.email.isUnique = false
+                    this.showValidationError(this.email, "That email is already beeing used.")
+                    
+                } else {
+                    this.email.isUnique = true
+                    this.hideValidationError(this.email)
+                }
+
+            }).catch(()=>{
+                console.log("Please try again later")
+            })
+
+        }
+
+
+    }
 
     usernameImmediately(){
         if(this.username.value !="" &&  !/^([a-zA-Z0-9]+)$/.test(this.username.value)){
@@ -47,7 +89,7 @@ export default class RegistrationForm {
             this.hideValidationError(this.username)
         }
     }
-    //14:41 Live validation form 2
+    
     hideValidationError(el){
         el.nextElementSibling.classList.remove("liveValidateMessage--visible")
     }
@@ -58,9 +100,29 @@ export default class RegistrationForm {
         el.errors = true
     }
 
+    
+
     usernameAfterDelay(){
         if (this.username.value.length<3){
             this.showValidationError(this. username, "Username must be at least 3 characters")
+        }
+
+        if (!this.username.errors){
+            this.hideValidationError(this.username)
+        }
+
+        if(!this.username.errors){
+            axios.post('/doesUsernameExist', {username: this.username.value}).then((response)=>{
+                if (response.data) {
+                    this.showValidationError(this.username, "That username is already taken")
+                    this.username.isUnique = false
+                } else {
+                    this.username.isUnique = true
+                }
+
+            }).catch(()=>{
+                console.log("Please try again later")
+            })
         }
 
     }

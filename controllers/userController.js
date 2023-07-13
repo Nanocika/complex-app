@@ -7,6 +7,17 @@ const Follow = require('../models/Follow.js')
 //Pusholtam most az lemaradt ket valtoztatast
 //KOMMENT END ******
 
+exports.doesUsernameExist = function(req, res){
+    User.findByUserName(req.body.username).then(function(){
+        res.json(true)
+    }).catch(function(){
+        res.json(false)
+    })
+} 
+
+
+
+
 exports.sharedProfileData= async function (req, res, next) {
     let isVisitorsProfile = false
     let isFollowing = false
