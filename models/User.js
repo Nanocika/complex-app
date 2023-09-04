@@ -116,7 +116,8 @@ User.doesEmailExist = function(email){
     if(typeof(email)!= "string"){
       resolve(false)
       return
-    }
+      
+    } 
     let user = await usersCollection.findOne({email: email})
     if (user){
       resolve(true)
