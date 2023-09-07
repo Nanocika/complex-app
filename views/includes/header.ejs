@@ -21,17 +21,20 @@
           <a href="#" class="text-white mr-2 header-search-icon" title="Search" data-toggle="tooltip" data-placement="bottom"><i class="fas fa-search"></i></a>
           <span class="text-white mr-2 header-chat-icon" title="Chat" data-toggle="tooltip" data-placement="bottom"><i class="fas fa-comment"></i></span>
           
-          <!-- GRAVATAR-->
+          <!---->
           <a href="/profile/<%= user.username%>" class="mr-2"><img title="My Profile" data-toggle="tooltip" data-placement="bottom" style="width: 32px; height: 32px; border-radius: 16px;" src="<%=user.avatar%>"></a>
           <a class="btn btn-sm btn-success mr-2" href="/create-post">Create Post for <%=user.username%></a>
+          
           <!-- Sign out post form-->      
           <form action="/logout" method="POST" class="d-inline">
+            <input type ="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn btn-sm btn-secondary">Sign Out</button>
           </form>
         </div>     
    
         <% } else { %>
-        <!-- FORM LOGIN starts here -->
+      
+      <!-- FORM LOGIN starts here -->
       <form action="/login" method="POST" class="mb-0 pt-2 pt-md-0">
         <div class="row align-items-center">
           <div class="col-md mr-0 pr-md-0 mb-3 mb-md-0">
@@ -41,6 +44,7 @@
             <input name="password" class="form-control form-control-sm input-dark" type="password" placeholder="Password">
           </div>
           <div class="col-md-auto">
+            <input type ="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn btn-primary btn-sm">Sign In</button>
           </div>
         </div>

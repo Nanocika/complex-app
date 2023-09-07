@@ -12,7 +12,7 @@
       <p class="lead text-muted">Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing is the key to enjoying the internet again.</p>
     </div>
     <div class="col-lg-5 pl-lg-5 pb-3 py-lg-5">
-      <form action="/register" method="POST" id="registration-form"> <!-- FORM starts here -->
+      <form action="/register" method="POST" id="registration-form"> <!--REG FORM starts here -->
       
         <!-- DIV FOR FLASH MESSAGE REGISTER ERRORS -->
       
@@ -35,6 +35,7 @@
             <input name="password" id="password-register" class="form-control" type="password" placeholder="Create a password">
           </div>
           
+          <input type ="hidden" name="_csrf" value="<%= csrfToken %>">
           <button type="submit" class="py-3 mt-4 btn btn-lg btn-success btn-block">Sign up for OurApp</button>
           
         </form> <!-- FORM ends here -->
