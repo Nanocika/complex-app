@@ -4,10 +4,18 @@ const MongoStore = require("connect-mongo")
 const flash = require("connect-flash")
 const markdown = require("marked")
 const sanitizeHTML = require("sanitize-html")
-
 const csrf = require("csurf")
 
 const app = express()
+
+
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+
+app.use('/api', require('./router-api'))
+
+
+
 
 let sessionOptions = session({
   secret: "JavaScript is sooooooooooo cool",
@@ -39,8 +47,7 @@ app.use(function (req, res, next) {
   next()
 })
 const router = require("./router.js")
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
+
 app.use(express.static("public"))
 app.set("views", "views")
 app.set("view engine", "ejs")
