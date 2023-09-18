@@ -1,9 +1,9 @@
 const apiRouter = require('express').Router()
 
-   apiRouter.post('/login', function(req, res) {
+const userController = require('./controllers/userController.js')
+const postController = require('./controllers/postController.js')
+const followController = require('./controllers/followController.js')
 
-    res.json('Thank you for trying to login from our API')
-
-   }) 
+   apiRouter.post('/login', userController.apiLogin)
    
 module.exports = apiRouter

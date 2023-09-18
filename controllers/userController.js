@@ -83,6 +83,18 @@ exports.login =  function(req, res) {
                 
     })
 }
+
+exports.apiLogin =  function(req, res) {
+    let user = new User(req.body)
+    user.login().then(function(result){
+        res.json("Good  job, that is a real username and password")
+
+    }).catch(function(e){
+        res.json("Sorry , your values are nor correct")
+                
+    })
+}
+
 exports.logout = function(req, res) {
     //callback mukodik
     req.session.destroy(function() {
