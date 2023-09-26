@@ -1,6 +1,7 @@
 const User = require('../models/User.js')
 const Post = require('../models/Post.js')
 const Follow = require('../models/Follow.js')
+const jwt = require('jsonwebtoken')
 
 
 //Lacinak 
@@ -87,7 +88,7 @@ exports.login =  function(req, res) {
 exports.apiLogin =  function(req, res) {
     let user = new User(req.body)
     user.login().then(function(result){
-        res.json("Good  job, that is a real username and password")
+        res.json(jwt.sign({_id: user.data._id}, process.env.JWTSECRET, {expiresIn:'7d'}))
 
     }).catch(function(e){
         res.json("Sorry , your values are nor correct")
