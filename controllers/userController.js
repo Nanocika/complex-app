@@ -4,6 +4,19 @@ const Follow = require('../models/Follow.js')
 const jwt = require('jsonwebtoken')
 
 
+
+
+exports.apiMustBeLoggedIn = function(req,res,next){
+    try{
+        req.apiUser = jwt.verify(req.body.token, process.env.JWTSECRET)
+        next()
+    } catch {
+        res.json('Sorry you must provide a valid token')
+    }
+
+}
+
+
 //Lacinak 
 //Pusholtam most az lemaradt ket valtoztatast
 //KOMMENT END ******
