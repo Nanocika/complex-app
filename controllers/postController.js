@@ -1,3 +1,4 @@
+const { json } = require('express')
 const Post = require('../models/Post')
 exports.viewCreateScreen =  function(req, res){
     res.render('create-post')
@@ -92,6 +93,15 @@ exports.delete = function(req,res) {
         req.session.save(function(){
             res.redirect("/")
         }) 
+    })
+}
+
+exports.apiDelete = function(req,res) {
+    
+    Post.delete(req.params.id, req.apiUser._id).then(()=>{
+       res.json("Success")
+    }).catch(()=>{
+       res.json("You do non have permission tp perform that action.") 
     })
 }
 
