@@ -84,7 +84,7 @@ export default class Chat {
       <a href="/profile/${data.username}"><img class="avatar-tiny" src="${data.avatar}"></a>
       <div class="chat-message"><div class="chat-message-inner">
         <a href="/profile/${data.username}"><strong>${data.username}:</strong></a>
-        ${data.message}
+        ${data.message}<b>😀</b>
       </div></div>
     </div>
     <!-- end template-->
