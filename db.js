@@ -9,3 +9,4 @@ async function start() {
     app.listen(process.env.PORT)
 }
 start()
+//put to internet host: 12.10.2023
