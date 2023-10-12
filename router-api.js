@@ -12,4 +12,5 @@ apiRouter.use(cors())
    apiRouter.delete('/post/:id', userController.apiMustBeLoggedIn, postController.apiDelete)
    apiRouter.get('/postsByAuthor/:username', userController.apiGetPostsByUsername)
    
+   
 module.exports = apiRouter
